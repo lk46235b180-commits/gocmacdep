@@ -1,0 +1,43 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="vi">
+	<head>
+		<BaseHead
+			title={`Điều khoản & Công khai liên kết | ${SITE_TITLE}`}
+			description="Điều khoản sử dụng và thông cáo công khai liên kết tiếp thị trên Góc Mặc Đẹp."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Điều khoản sử dụng & Công khai liên kết</h1>
+			<p><em>Cập nhật lần cuối: 14/11/2026</em></p>
+
+			<h2>1. Điều khoản sử dụng</h2>
+			<p>
+				Toàn bộ nội dung bài viết, hình ảnh tự sản xuất và tài liệu trên <strong>{SITE_TITLE}</strong> đều thuộc quyền sở hữu trí tuệ của chúng tôi, trừ khi có ghi chú khác. Bạn đọc có thể chia sẻ bài viết nhưng vui lòng ghi rõ nguồn và kèm theo đường link trỏ về bài gốc.
+			</p>
+
+			<h2>2. Miễn trừ trách nhiệm</h2>
+			<p>
+				Các bài viết chia sẻ về thời trang, làm đẹp mang tính chất tham khảo dựa trên trải nghiệm và quan điểm cá nhân. Độc giả nên cân nhắc lựa chọn sản phẩm phù hợp với làn da và phong cách cá nhân của mình.
+			</p>
+
+			<h2>3. Công khai liên kết tiếp thị (Affiliate Disclosure)</h2>
+			<p>
+				Để duy trì hoạt động của blog, một số bài viết có thể chứa các liên kết tiếp thị liên kết (Affiliate Links). Khi bạn nhấp vào liên kết và mua sản phẩm, chúng tôi có thể nhận được một khoản hoa hồng nhỏ mà bạn <strong>hoàn toàn không phải trả thêm bất kỳ chi phí phát sinh nào</strong>.
+			</p>
+			<p>
+				Chúng tôi cam kết chỉ giới thiệu những sản phẩm và thương hiệu mà chúng tôi thực sự tin tưởng và đánh giá cao về chất lượng.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+

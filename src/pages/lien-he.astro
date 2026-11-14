@@ -1,0 +1,57 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="vi">
+	<head>
+		<BaseHead
+			title={`Liên hệ | ${SITE_TITLE}`}
+			description="Liên hệ với ban biên tập blog Góc Mặc Đẹp."
+		/>
+		<style>
+			.contact-box {
+				background: #f8fafc;
+				border: 1px solid #e2e8f0;
+				border-radius: 12px;
+				padding: 2em;
+				margin: 2em 0;
+			}
+			.contact-item {
+				margin-bottom: 1.2em;
+				font-size: 18px;
+			}
+			.contact-item strong {
+				color: var(--accent);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Liên hệ</h1>
+			<p>
+				Chúng tôi luôn sẵn sàng lắng nghe mọi góp ý, câu hỏi hoặc cơ hội hợp tác từ bạn đọc và các nhãn hàng.
+			</p>
+			<div class="contact-box">
+				<div class="contact-item">
+					<strong>Email:</strong> contact@thietkewebpro.io.vn
+				</div>
+				<div class="contact-item">
+					<strong>Website:</strong> https://thietkewebpro.io.vn
+				</div>
+				<div class="contact-item">
+					<strong>Thời gian phản hồi:</strong> Trong vòng 24 - 48 giờ làm việc.
+				</div>
+			</div>
+			<p>
+				Bạn cũng có thể theo dõi và nhắn tin cho chúng tôi qua các kênh mạng xã hội được liên kết ở chân trang.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+

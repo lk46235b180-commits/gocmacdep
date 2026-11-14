@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection('blog');
+	const tags = [
+		...new Set(allPosts.flatMap((post) => post.data.tags || []).map((t) => t.toLowerCase().trim())),
+	];
+
+	return tags.map((tag) => {
+		const filteredPosts = allPosts.filter((post) =>
+			(post.data.tags || []).some((t) => t.toLowerCase().trim() === tag),
+		).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+		return {
+			params: { tag },
+			props: { posts: filteredPosts, tagName: tag },
+		};
+	});
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<!doctype html>
+<html lang="vi">
+	<head>
+		<BaseHead
+			title={`Chủ đề: #${tag} | ${SITE_TITLE}`}
+			description={`Danh sách các bài viết về chủ đề ${tag} trên Góc Mặc Đẹp.`}
+		/>
+		<style>
+			.page-header {
+				margin-bottom: 2.5em;
+			}
+			.post-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.post-item {
+				margin-bottom: 1.8em;
+				padding-bottom: 1.8em;
+				border-bottom: 1px solid #e2e8f0;
+			}
+			.post-item h2 {
+				font-size: 1.4em;
+				margin: 0 0 0.4em 0;
+			}
+			.post-item a {
+				color: rgb(var(--black));
+				text-decoration: none;
+			}
+			.post-item a:hover {
+				color: var(--accent);
+			}
+			.post-desc {
+				color: rgb(var(--gray));
+				font-size: 16px;
+				margin-bottom: 0.5em;
+			}
+			.meta {
+				font-size: 14px;
+				color: rgb(var(--gray));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="page-header">
+				<p><a href="/tags">&larr; Tất cả chủ đề</a></p>
+				<h1>Chủ đề: #{tag}</h1>
+				<p>Tìm thấy {posts.length} bài viết phù hợp:</p>
+			</div>
+			<ul class="post-list">
+				{
+					posts.map((post) => (
+						<li class="post-item">
+							<h2>
+								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+							</h2>
+							<p class="post-desc">{post.data.description}</p>
+							<div class="meta">
+								<FormattedDate date={post.data.pubDate} />
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
+

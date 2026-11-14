@@ -1,0 +1,53 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="vi">
+	<head>
+		<BaseHead
+			title={`Chính sách bảo mật | ${SITE_TITLE}`}
+			description="Chính sách bảo mật thông tin người dùng trên blog Góc Mặc Đẹp."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Chính sách bảo mật</h1>
+			<p><em>Cập nhật lần cuối: 14/11/2026</em></p>
+
+			<p>
+				Tại <strong>{SITE_TITLE}</strong>, quyền riêng tư của độc giả là một trong những ưu tiên hàng đầu của chúng tôi. Văn bản này mô tả các loại thông tin cá nhân được tiếp nhận và thu thập khi bạn truy cập trang web, cũng như cách chúng tôi bảo vệ thông tin đó.
+			</p>
+
+			<h2>1. Thông tin chúng tôi thu thập</h2>
+			<p>
+				Là một trang web tĩnh, chúng tôi không chủ động yêu cầu bạn tạo tài khoản hay cung cấp thông tin nhận dạng cá nhân khi đọc bài. Các thông tin có thể được ghi nhận bao gồm:
+			</p>
+			<ul>
+				<li>Thông tin nhật ký máy chủ (Log files): Địa chỉ IP, loại trình duyệt, nhà cung cấp dịch vụ Internet (ISP), số lần nhấp chuột nhằm mục đích phân tích xu hướng và quản trị hệ thống.</li>
+				<li>Cookie và Web Beacons: Chúng tôi hoặc các đối tác phân tích (nếu có) có thể dùng cookie để tối ưu trải nghiệm đọc trang của bạn.</li>
+			</ul>
+
+			<h2>2. Bảo mật dữ liệu</h2>
+			<p>
+				Chúng tôi áp dụng các tiêu chuẩn bảo mật hiện đại (mã hóa HTTPS/SSL) để bảo vệ toàn vẹn dữ liệu truyền tải giữa thiết bị của bạn và máy chủ trang web.
+			</p>
+
+			<h2>3. Liên kết bên thứ ba</h2>
+			<p>
+				Blog có thể chứa các đường dẫn tới các trang web khác. Chúng tôi không chịu trách nhiệm về nội dung hay chính sách bảo mật của các trang web ngoài này.
+			</p>
+
+			<h2>4. Thay đổi chính sách</h2>
+			<p>
+				Chúng tôi có quyền cập nhật chính sách bảo mật này bất cứ lúc nào. Mọi điều chỉnh sẽ được công bố trực tiếp tại trang này.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+

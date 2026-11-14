@@ -1,0 +1,54 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="vi">
+	<head>
+		<BaseHead
+			title={`Giới thiệu | ${SITE_TITLE}`}
+			description="Tìm hiểu về Góc Mặc Đẹp - Blog chia sẻ phong cách thời trang, cách phối đồ và làm đẹp mỗi ngày."
+		/>
+		<style>
+			.content-wrapper {
+				padding: 1em 0;
+			}
+			.content-wrapper h1 {
+				margin-bottom: 0.8em;
+			}
+			.content-wrapper p {
+				font-size: 18px;
+				line-height: 1.8;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="content-wrapper">
+				<h1>Giới thiệu về Góc Mặc Đẹp</h1>
+				<p>
+					Chào mừng bạn ghé thăm <strong>Góc Mặc Đẹp</strong>! Đây là blog cá nhân dành cho những ai yêu thích thời trang, sự thanh lịch và muốn xây dựng phong cách riêng cho bản thân mỗi ngày.
+				</p>
+				<h2>Sứ mệnh của chúng tôi</h2>
+				<p>
+					Thời trang không nhất thiết phải xa xỉ hay phức tạp. Chúng tôi tin rằng mỗi người đều có thể mặc đẹp và tự tin hơn thông qua những bí quyết phối đồ thông minh, cách lựa chọn chất liệu phù hợp và nắm bắt xu hướng một cách tinh tế.
+				</p>
+				<h2>Nội dung bạn sẽ tìm thấy tại đây</h2>
+				<ul>
+					<li><strong>Mẹo phối đồ hàng ngày:</strong> Công thức mix-match đơn giản cho công sở, dạo phố và các dịp đặc biệt.</li>
+					<li><strong>Xu hướng thời trang:</strong> Cập nhật các trào lưu mới nhưng có tính ứng dụng cao.</li>
+					<li><strong>Chăm sóc bản thân & Làm đẹp:</strong> Những bí quyết nuôi dưỡng vẻ đẹp tự nhiên, rạng ngời từ bên trong.</li>
+				</ul>
+				<p>
+					Cảm ơn bạn đã luôn đồng hành cùng <strong>Góc Mặc Đẹp</strong>. Đừng ngần ngại <a href="/lien-he">liên hệ</a> nếu bạn có bất kỳ câu hỏi hoặc ý kiến đóng góp nào nhé!
+				</p>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+

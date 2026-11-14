@@ -1,0 +1,85 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header>
+	<nav>
+		<div class="site-branding">
+			<a href="/" class="site-title">{SITE_TITLE}</a>
+		</div>
+		<div class="internal-links">
+			<HeaderLink href="/">Trang chủ</HeaderLink>
+			<HeaderLink href="/blog">Bài viết</HeaderLink>
+			<HeaderLink href="/tags">Chủ đề</HeaderLink>
+			<HeaderLink href="/gioi-thieu">Giới thiệu</HeaderLink>
+			<HeaderLink href="/lien-he">Liên hệ</HeaderLink>
+		</div>
+	</nav>
+</header>
+<style>
+	header {
+		margin: 0;
+		padding: 0.5em 1em;
+		background: #ffffff;
+		border-bottom: 1px solid #f1f5f9;
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		backdrop-filter: blur(8px);
+		background-color: rgba(255, 255, 255, 0.95);
+	}
+	nav {
+		max-width: 900px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 0.8em;
+	}
+	.site-title {
+		font-size: 1.4em;
+		font-weight: 800;
+		color: var(--accent);
+		text-decoration: none;
+		letter-spacing: -0.5px;
+	}
+	.internal-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.3em;
+	}
+	.internal-links :global(a) {
+		padding: 0.5em 0.8em;
+		color: rgb(var(--gray-dark));
+		border-radius: 6px;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 16px;
+		transition: all 0.2s ease;
+	}
+	.internal-links :global(a:hover) {
+		background: var(--accent-light);
+		color: var(--accent);
+	}
+	.internal-links :global(a.active) {
+		background: var(--accent);
+		color: #ffffff;
+	}
+	@media (max-width: 600px) {
+		nav {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.internal-links {
+			width: 100%;
+			overflow-x: auto;
+			padding-bottom: 4px;
+		}
+		.internal-links :global(a) {
+			padding: 0.4em 0.6em;
+			font-size: 15px;
+		}
+	}
+</style>

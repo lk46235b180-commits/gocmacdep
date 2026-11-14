@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bảng Điều Khiển Quản Trị | Góc Mặc Đẹp</title>
+	<style>
+		:root {
+			--accent: #e11d48;
+			--accent-hover: #be123c;
+			--accent-light: #fff1f2;
+			--bg: #f8fafc;
+			--card: #ffffff;
+			--text: #0f172a;
+			--text-muted: #64748b;
+			--border: #e2e8f0;
+			--success: #16a34a;
+			--danger: #dc2626;
+		}
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+			background-color: var(--bg);
+			color: var(--text);
+			line-height: 1.5;
+		}
+
+		/* Header */
+		.navbar {
+			background: var(--card);
+			border-bottom: 1px solid var(--border);
+			padding: 0.8rem 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			position: sticky;
+			top: 0;
+			z-index: 100;
+		}
+		.nav-brand {
+			font-size: 1.3rem;
+			font-weight: 800;
+			color: var(--accent);
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+		.nav-actions {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+		.user-badge {
+			font-size: 0.9rem;
+			font-weight: 600;
+			background: var(--accent-light);
+			color: var(--accent);
+			padding: 4px 12px;
+			border-radius: 999px;
+		}
+		.btn-logout {
+			background: transparent;
+			border: 1px solid var(--border);
+			padding: 6px 14px;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.85rem;
+			color: var(--text-muted);
+			font-weight: 500;
+			transition: all 0.2s;
+		}
+		.btn-logout:hover {
+			border-color: var(--danger);
+			color: var(--danger);
+		}
+
+		/* Main Container */
+		.app-container {
+			max-width: 1300px;
+			margin: 1.5rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tab Controls */
+		.tab-nav {
+			display: flex;
+			gap: 0.5rem;
+			margin-bottom: 1.5rem;
+			border-bottom: 2px solid var(--border);
+			padding-bottom: 0.5rem;
+		}
+		.tab-btn {
+			background: none;
+			border: none;
+			padding: 0.6rem 1.2rem;
+			font-size: 0.95rem;
+			font-weight: 600;
+			color: var(--text-muted);
+			cursor: pointer;
+			border-radius: 6px;
+			transition: all 0.2s;
+		}
+		.tab-btn.active {
+			background: var(--accent);
+			color: #ffffff;
+		}
+
+		/* WordPress Layout */
+		.wp-layout {
+			display: grid;
+			grid-template-columns: 1fr 340px;
+			gap: 1.5rem;
+		}
+		@media (max-width: 960px) {
+			.wp-layout {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		.wp-box {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			padding: 1.2rem;
+			margin-bottom: 1.5rem;
+		}
+		.wp-box-title {
+			font-size: 1rem;
+			font-weight: 700;
+			margin-bottom: 0.8rem;
+			color: #1e293b;
+			border-bottom: 1px solid var(--border);
+			padding-bottom: 0.5rem;
+		}
+
+		/* Form Inputs */
+		.input-title {
+			width: 100%;
+			font-size: 1.6rem;
+			font-weight: 700;
+			padding: 0.6rem 0.8rem;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			margin-bottom: 1rem;
+			outline: none;
+		}
+		.input-title:focus {
+			border-color: var(--accent);
+		}
+		.input-field {
+			width: 100%;
+			padding: 0.6rem 0.8rem;
+			border: 1px solid var(--border);
+			border-radius: 6px;
+			font-size: 0.95rem;
+			outline: none;
+			margin-bottom: 0.6rem;
+		}
+		.input-field:focus {
+			border-color: var(--accent);
+		}
+		.char-count {
+			font-size: 0.85rem;
+			color: var(--text-muted);
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 0.5rem;
+		}
+		.char-badge-good { color: var(--success); font-weight: 600; }
+		.char-badge-warn { color: #d97706; }
+
+		/* Visual Editor Toolbar */
+		.editor-container {
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			overflow: hidden;
+			background: #ffffff;
+		}
+		.editor-toolbar {
+			background: #f1f5f9;
+			border-bottom: 1px solid var(--border);
+			padding: 0.5rem;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 4px;
+			align-items: center;
+		}
+		.tool-btn {
+			background: #ffffff;
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			padding: 4px 8px;
+			font-size: 0.85rem;
+			font-weight: 600;
+			cursor: pointer;
+			color: #334155;
+			min-width: 28px;
+			height: 28px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.tool-btn:hover {
+			background: var(--accent-light);
+			color: var(--accent);
+			border-color: var(--accent);
+		}
+		.tool-select {
+			background: #ffffff;
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			padding: 3px 6px;
+			font-size: 0.85rem;
+			height: 28px;
+			outline: none;
+		}
+		.tool-color {
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			width: 32px;
+			height: 28px;
+			cursor: pointer;
+			padding: 0;
+			background: none;
+		}
+		.editor-content {
+			min-height: 480px;
+			padding: 1.2rem;
+			outline: none;
+			font-size: 18px;
+			line-height: 1.8;
+			color: #1e293b;
+		}
+		.editor-content h2 { font-size: 1.7em; margin: 1.2em 0 0.5em 0; border-bottom: 2px solid var(--accent-light); }
+		.editor-content h3 { font-size: 1.35em; margin: 1em 0 0.4em 0; }
+		.editor-content h4 { font-size: 1.15em; }
+		.editor-content blockquote {
+			border-left: 4px solid var(--accent);
+			background: var(--accent-light);
+			padding: 0.5em 1em;
+			margin: 1em 0;
+			font-style: italic;
+		}
+		.editor-content table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 1em 0;
+		}
+		.editor-content table th, .editor-content table td {
+			border: 1px solid #cbd5e1;
+			padding: 8px 12px;
+		}
+		.editor-content table th {
+			background: #f1f5f9;
+		}
+		.editor-content img {
+			max-width: 100%;
+			border-radius: 8px;
+			margin: 1em 0;
+		}
+		.editor-content iframe {
+			width: 100%;
+			aspect-ratio: 16/9;
+			border-radius: 8px;
+			border: none;
+			margin: 1em 0;
+		}
+
+		/* Actions Bar */
+		.action-btns {
+			display: flex;
+			flex-direction: column;
+			gap: 0.6rem;
+		}
+		.btn {
+			padding: 0.75rem 1rem;
+			border-radius: 6px;
+			font-size: 0.95rem;
+			font-weight: 600;
+			cursor: pointer;
+			border: none;
+			text-align: center;
+			transition: all 0.2s;
+		}
+		.btn-primary {
+			background: var(--accent);
+			color: #ffffff;
+		}
+		.btn-primary:hover {
+			background: var(--accent-hover);
+		}
+		.btn-outline {
+			background: #ffffff;
+			border: 1px solid var(--border);
+			color: #334155;
+		}
+		.btn-outline:hover {
+			background: #f8fafc;
+			border-color: #94a3b8;
+		}
+
+		/* Image Preview */
+		.hero-preview {
+			width: 100%;
+			height: 160px;
+			border-radius: 6px;
+			object-fit: cover;
+			background: #f1f5f9;
+			border: 1px dashed #cbd5e1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-muted);
+			margin-bottom: 0.6rem;
+			overflow: hidden;
+		}
+		.hero-preview img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		/* Posts Table */
+		.posts-table {
+			width: 100%;
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			border-collapse: collapse;
+			overflow: hidden;
+		}
+		.posts-table th, .posts-table td {
+			padding: 12px 16px;
+			text-align: left;
+			border-bottom: 1px solid var(--border);
+		}
+		.posts-table th {
+			background: #f8fafc;
+			font-size: 0.85rem;
+			text-transform: uppercase;
+			color: var(--text-muted);
+		}
+		.badge {
+			display: inline-block;
+			padding: 3px 8px;
+			border-radius: 999px;
+			font-size: 0.75rem;
+			font-weight: 600;
+		}
+		.badge-published { background: #dcfce7; color: #15803d; }
+		.badge-draft { background: #fef3c7; color: #b45309; }
+
+		/* Modal Preview */
+		.modal-overlay {
+			position: fixed;
+			top: 0; left: 0; right: 0; bottom: 0;
+			background: rgba(0,0,0,0.5);
+			display: none;
+			align-items: center;
+			justify-content: center;
+			z-index: 1000;
+			padding: 1rem;
+		}
+		.modal-body {
+			background: #ffffff;
+			max-width: 800px;
+			width: 100%;
+			max-height: 90vh;
+			border-radius: 12px;
+			padding: 2rem;
+			overflow-y: auto;
+			position: relative;
+		}
+		.modal-close {
+			position: absolute;
+			top: 1rem;
+			right: 1rem;
+			background: #f1f5f9;
+			border: none;
+			border-radius: 50%;
+			width: 32px;
+			height: 32px;
+			cursor: pointer;
+			font-weight: 700;
+		}
+	</style>
+</head>
+<body>
+	<header class="navbar">
+		<div class="nav-brand">
+			<span>Góc Mặc Đẹp</span>
+			<span style="font-size: 0.8rem; font-weight: 400; color: var(--text-muted);">(Quản trị)</span>
+		</div>
+		<div class="nav-actions">
+			<span class="user-badge" id="userBadge">admin</span>
+			<button class="btn-logout" id="btn2FASetup" title="Cài đặt xác thực 2 bước">Bật 2FA</button>
+			<button class="btn-logout" id="btnLogout">Đăng xuất</button>
+		</div>
+	</header>
+
+	<div class="app-container">
+		<!-- Tabs -->
+		<div class="tab-nav">
+			<button class="tab-btn active" id="tabWrite" onclick="switchTab('write')">Viết bài mới</button>
+			<button class="tab-btn" id="tabList" onclick="switchTab('list')">Danh sách bài viết</button>
+		</div>
+
+		<!-- TAB 1: VIẾT BÀI (GIAO DIỆN KIỂU WORDPRESS) -->
+		<div id="viewWrite">
+			<div class="wp-layout">
+				<!-- Cột chính bên trái -->
+				<div class="wp-main">
+					<input type="text" id="postTitle" class="input-title" placeholder="Thêm tiêu đề bài viết (Thẻ H1)..." oninput="autoSlug()">
+
+					<!-- Trình soạn thảo trực quan -->
+					<div class="editor-container">
+						<div class="editor-toolbar">
+							<!-- Kiểu đoạn -->
+							<select class="tool-select" onchange="formatDoc('formatBlock', this.value); this.selectedIndex=0;">
+								<option value="" disabled selected>Kiểu đoạn</option>
+								<option value="p">Đoạn văn (P)</option>
+								<option value="h2">Tiêu đề H2</option>
+								<option value="h3">Tiêu đề H3</option>
+								<option value="h4">Tiêu đề H4</option>
+							</select>
+
+							<!-- Cỡ chữ -->
+							<select class="tool-select" onchange="formatDoc('fontSize', this.value); this.selectedIndex=0;">
+								<option value="" disabled selected>Cỡ chữ</option>
+								<option value="3">Bình thường (18px)</option>
+								<option value="4">Lớn vừa</option>
+								<option value="5">Lớn</option>
+							</select>
+
+							<!-- Định dạng cơ bản -->
+							<button class="tool-btn" onclick="formatDoc('bold')" title="In đậm"><b>B</b></button>
+							<button class="tool-btn" onclick="formatDoc('italic')" title="In nghiêng"><i>I</i></button>
+							<button class="tool-btn" onclick="formatDoc('underline')" title="Gạch chân"><u>U</u></button>
+
+							<!-- Màu chữ -->
+							<input type="color" class="tool-color" onchange="formatDoc('foreColor', this.value)" title="Màu chữ" value="#0f172a">
+
+							<!-- Căn lề -->
+							<button class="tool-btn" onclick="formatDoc('justifyLeft')" title="Căn trái">&lt;|</button>
+							<button class="tool-btn" onclick="formatDoc('justifyCenter')" title="Căn giữa">|=|</button>
+							<button class="tool-btn" onclick="formatDoc('justifyRight')" title="Căn phải">|&gt;</button>
+
+							<!-- Danh sách -->
+							<button class="tool-btn" onclick="formatDoc('insertUnorderedList')" title="Danh sách chấm">• List</button>
+							<button class="tool-btn" onclick="formatDoc('insertOrderedList')" title="Danh sách số">1. List</button>
+
+							<!-- Trích dẫn & Kẻ ngang -->
+							<button class="tool-btn" onclick="insertQuote()" title="Trích dẫn">“ Quote</button>
+							<button class="tool-btn" onclick="formatDoc('insertHorizontalRule')" title="Kẻ ngang">— HR</button>
+
+							<!-- Chèn Link, Bảng, Ảnh, YouTube -->
+							<button class="tool-btn" onclick="insertLink()" title="Chèn Link">🔗 Link</button>
+							<button class="tool-btn" onclick="insertTable()" title="Chèn bảng">⊞ Bảng</button>
+							<button class="tool-btn" onclick="triggerUploadImage()" title="Tải & Chèn ảnh">📷 Chèn Ảnh</button>
+							<button class="tool-btn" onclick="insertYoutube()" title="Chèn Video YouTube">▶ YouTube</button>
+
+							<!-- Hoàn tác & Làm lại -->
+							<button class="tool-btn" onclick="formatDoc('undo')" title="Hoàn tác">↩</button>
+							<button class="tool-btn" onclick="formatDoc('redo')" title="Làm lại">↪</button>
+						</div>
+
+						<!-- Nội dung có thể chỉnh sửa -->
+						<div id="editorContent" class="editor-content" contenteditable="true" placeholder="Bắt đầu viết nội dung bài viết của bạn tại đây..."></div>
+					</div>
+				</div>
+
+				<!-- Cột phụ bên phải (Sidebar) -->
+				<div class="wp-sidebar">
+					<!-- Box Xuất bản & Lưu nháp -->
+					<div class="wp-box">
+						<div class="wp-box-title">Đăng bài viết</div>
+						<div class="action-btns">
+							<button class="btn btn-outline" onclick="openPreviewModal()">👁 Xem trước</button>
+							<button class="btn btn-outline" onclick="saveDraft()">💾 Lưu nháp</button>
+							<button class="btn btn-primary" onclick="publishPost()">🚀 Xuất bản</button>
+						</div>
+					</div>
+
+					<!-- Box Đường dẫn (Slug) -->
+					<div class="wp-box">
+						<div class="wp-box-title">Đường dẫn tĩnh (Slug)</div>
+						<input type="text" id="postSlug" class="input-field" placeholder="duong-dan-bai-viet">
+						<small style="color: var(--text-muted); font-size: 0.8rem;">Tự động sinh từ tiêu đề, có thể chỉnh sửa.</small>
+					</div>
+
+					<!-- Box Tối ưu SEO -->
+					<div class="wp-box">
+						<div class="wp-box-title">Tối ưu SEO (Meta)</div>
+						<div class="char-count">
+							<span>Mô tả SEO:</span>
+							<span id="descCount">0 ký tự</span>
+						</div>
+						<textarea id="postDesc" class="input-field" rows="3" placeholder="Mô tả tóm tắt hấp dẫn..." oninput="updateCharCount()"></textarea>
+						<small id="descHint" style="display:block; margin-bottom: 0.6rem; font-size: 0.8rem; color: var(--text-muted);">Gợi ý lý tưởng: 140 - 160 ký tự.</small>
+
+						<label style="font-size: 0.85rem; font-weight: 600; display:block; margin-bottom: 0.3rem;">Từ khóa chính (Focus Keywords)</label>
+						<input type="text" id="postKeywords" class="input-field" placeholder="Ví dụ: phối đồ công sở, thời trang nữ">
+					</div>
+
+					<!-- Box Chuyên mục & Tags -->
+					<div class="wp-box">
+						<div class="wp-box-title">Phân loại</div>
+						<label style="font-size: 0.85rem; font-weight: 600; display:block; margin-bottom: 0.3rem;">Chuyên mục</label>
+						<input type="text" id="postCategory" class="input-field" placeholder="Ví dụ: Phong cách, Xu hướng, Làm đẹp">
+
+						<label style="font-size: 0.85rem; font-weight: 600; display:block; margin-bottom: 0.3rem; margin-top: 0.5rem;">Thẻ Tags (cách nhau bằng dấu phẩy)</label>
+						<input type="text" id="postTags" class="input-field" placeholder="phối đồ, công sở, hè 2026">
+					</div>
+
+					<!-- Box Ảnh đại diện (Hero Image) -->
+					<div class="wp-box">
+						<div class="wp-box-title">Ảnh đại diện bài viết</div>
+						<div class="hero-preview" id="heroPreviewBox">
+							<span>Chưa có ảnh</span>
+						</div>
+						<input type="hidden" id="heroImageUrl">
+						<button class="btn btn-outline" style="width: 100%;" onclick="triggerUploadHero()">Tải ảnh đại diện lên (Tự nén)</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- TAB 2: DANH SÁCH BÀI VIẾT -->
+		<div id="viewList" style="display: none;">
+			<table class="posts-table">
+				<thead>
+					<tr>
+						<th>Tiêu đề</th>
+						<th>Chuyên mục</th>
+						<th>Ngày</th>
+						<th>Trạng thái</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody id="postsTableBody">
+					<!-- Danh sách render bằng JS -->
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- Modal Xem trước (Preview) -->
+	<div class="modal-overlay" id="previewModal">
+		<div class="modal-body">
+			<button class="modal-close" onclick="closePreviewModal()">&times;</button>
+			<h1 id="previewTitle" style="color: var(--accent); margin-bottom: 0.5rem;"></h1>
+			<p id="previewDesc" style="color: var(--text-muted); font-style: italic; margin-bottom: 1.5rem;"></p>
+			<div id="previewHero" style="margin-bottom: 1.5rem;"></div>
+			<div id="previewBody" class="editor-content" style="border: none; padding: 0;"></div>
+		</div>
+	</div>
+
+	<!-- Input File ẩn để Upload ảnh -->
+	<input type="file" id="imageFileInput" accept="image/*" style="display: none;">
+
+	<script>
+		let csrfToken = '';
+		let uploadTarget = 'inline'; // 'inline' hoặc 'hero'
+		let currentEditingSlug = null;
+		let currentEditingStatus = 'new';
+
+		// Khởi tạo & Kiểm tra Auth
+		async function initApp() {
+			try {
+				const res = await fetch('/admin/api/me');
+				const data = await res.json();
+				if (!data.user) {
+					window.location.href = '/admin/login';
+					return;
+				}
+				csrfToken = data.csrfToken;
+				document.getElementById('userBadge').innerText = data.user.username;
+				if (data.user.has2FA) {
+					document.getElementById('btn2FASetup').innerText = '2FA: Đã bật';
+					document.getElementById('btn2FASetup').style.color = '#16a34a';
+				}
+			} catch (e) {
+				window.location.href = '/admin/login';
+			}
+		}
+		initApp();
+
+		// Chuyển Tab
+		function switchTab(tab) {
+			if (tab === 'write') {
+				document.getElementById('viewWrite').style.display = 'block';
+				document.getElementById('viewList').style.display = 'none';
+				document.getElementById('tabWrite').classList.add('active');
+				document.getElementById('tabList').classList.remove('active');
+			} else {
+				document.getElementById('viewWrite').style.display = 'none';
+				document.getElementById('viewList').style.display = 'block';
+				document.getElementById('tabWrite').classList.remove('active');
+				document.getElementById('tabList').classList.add('active');
+				loadPostsList();
+			}
+		}
+
+		// Định dạng tài liệu WYSIWYG
+		function formatDoc(cmd, val = null) {
+			document.execCommand(cmd, false, val);
+			document.getElementById('editorContent').focus();
+		}
+
+		// Trích dẫn
+		function insertQuote() {
+			const selection = window.getSelection().toString();
+			formatDoc('insertHTML', `<blockquote>${selection || 'Nội dung trích dẫn...'}</blockquote><p><br></p>`);
+		}
+
+		// Chèn Link
+		function insertLink() {
+			const url = prompt('Nhập địa chỉ URL liên kết (https://...):');
+			if (url) formatDoc('createLink', url);
+		}
+
+		// Chèn Bảng
+		function insertTable() {
+			const rows = prompt('Nhập số hàng:', '3');
+			const cols = prompt('Nhập số cột:', '3');
+			if (rows && cols) {
+				let html = '<table><thead><tr>';
+				for (let c = 0; c < cols; c++) html += `<th>Tiêu đề ${c+1}</th>`;
+				html += '</tr></thead><tbody>';
+				for (let r = 0; r < rows - 1; r++) {
+					html += '<tr>';
+					for (let c = 0; c < cols; c++) html += `<td>Ô ${r+1}-${c+1}</td>`;
+					html += '</tr>';
+				}
+				html += '</tbody></table><p><br></p>';
+				formatDoc('insertHTML', html);
+			}
+		}
+
+		// Chèn YouTube
+		function insertYoutube() {
+			const url = prompt('Nhập link video YouTube (hoặc ID video):');
+			if (!url) return;
+			let videoId = '';
+			const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+			if (match) videoId = match[1];
+			else if (url.length === 11) videoId = url;
+
+			if (videoId) {
+				const iframe = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe><p><br></p>`;
+				formatDoc('insertHTML', iframe);
+			} else {
+				alert('Link YouTube không hợp lệ!');
+			}
+		}
+
+		// Upload Ảnh
+		const fileInput = document.getElementById('imageFileInput');
+		function triggerUploadImage() {
+			uploadTarget = 'inline';
+			fileInput.click();
+		}
+		function triggerUploadHero() {
+			uploadTarget = 'hero';
+			fileInput.click();
+		}
+
+		fileInput.addEventListener('change', async () => {
+			if (!fileInput.files || !fileInput.files[0]) return;
+			const file = fileInput.files[0];
+			const altText = uploadTarget === 'inline' ? prompt('Nhập mô tả cho ảnh (Alt text):', '') : '';
+
+			const formData = new FormData();
+			formData.append('image', file);
+
+			try {
+				const res = await fetch('/admin/api/upload', {
+					method: 'POST',
+					headers: { 'x-csrf-token': csrfToken },
+					body: formData,
+				});
+				const data = await res.json();
+				if (res.ok && data.success) {
+					if (uploadTarget === 'inline') {
+						const imgHtml = `<img src="${data.url}" alt="${altText || ''}" title="${altText || ''}"><p><br></p>`;
+						formatDoc('insertHTML', imgHtml);
+					} else {
+						document.getElementById('heroImageUrl').value = data.url;
+						document.getElementById('heroPreviewBox').innerHTML = `<img src="${data.url}">`;
+					}
+				} else {
+					alert(data.error || 'Lỗi khi tải ảnh lên.');
+				}
+			} catch (err) {
+				alert('Lỗi kết nối upload: ' + err.message);
+			} finally {
+				fileInput.value = '';
+			}
+		});
+
+		// Auto Slug
+		function autoSlug() {
+			if (currentEditingSlug) return; // Nếu đang sửa bài cũ thì không tự đè
+			const title = document.getElementById('postTitle').value;
+			const slug = title
+				.toLowerCase()
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, '')
+				.replace(/[đĐ]/g, 'd')
+				.replace(/[^a-z0-9\s-]/g, '')
+				.trim()
+				.replace(/\s+/g, '-');
+			document.getElementById('postSlug').value = slug;
+		}
+
+		// Đếm ký tự SEO
+		function updateCharCount() {
+			const desc = document.getElementById('postDesc').value;
+			const len = desc.length;
+			const counter = document.getElementById('descCount');
+			counter.innerText = `${len} ký tự`;
+			if (len >= 140 && len <= 160) {
+				counter.className = 'char-badge-good';
+			} else if (len > 160) {
+				counter.className = 'char-badge-warn';
+			} else {
+				counter.className = '';
+			}
+		}
+
+		// Chuyển đổi HTML từ WYSIWYG sang Markdown sạch & HTML gọn
+		function htmlToCleanMarkdown(html) {
+			const div = document.createElement('div');
+			div.innerHTML = html;
+
+			function walk(node) {
+				if (node.nodeType === Node.TEXT_NODE) return node.textContent;
+				if (node.nodeType !== Node.ELEMENT_NODE) return '';
+
+				const tag = node.tagName.toLowerCase();
+				let inner = Array.from(node.childNodes).map(walk).join('');
+
+				switch (tag) {
+					case 'h2': return `\n\n## ${inner.trim()}\n\n`;
+					case 'h3': return `\n\n### ${inner.trim()}\n\n`;
+					case 'h4': return `\n\n#### ${inner.trim()}\n\n`;
+					case 'p': return `\n\n${inner.trim()}\n\n`;
+					case 'b':
+					case 'strong': return `**${inner}**`;
+					case 'i':
+					case 'em': return `*${inner}*`;
+					case 'u': return `<u>${inner}</u>`;
+					case 'blockquote': return `\n\n> ${inner.trim()}\n\n`;
+					case 'hr': return `\n\n---\n\n`;
+					case 'a': return `[${inner}](${node.getAttribute('href') || ''})`;
+					case 'img': {
+						const src = node.getAttribute('src') || '';
+						const alt = node.getAttribute('alt') || '';
+						return `\n\n![${alt}](${src})\n\n`;
+					}
+					case 'ul': {
+						const items = Array.from(node.querySelectorAll(':scope > li'))
+							.map(li => `- ${Array.from(li.childNodes).map(walk).join('').trim()}`)
+							.join('\n');
+						return `\n\n${items}\n\n`;
+					}
+					case 'ol': {
+						const items = Array.from(node.querySelectorAll(':scope > li'))
+							.map((li, i) => `${i + 1}. ${Array.from(li.childNodes).map(walk).join('').trim()}`)
+							.join('\n');
+						return `\n\n${items}\n\n`;
+					}
+					case 'table': return `\n\n${node.outerHTML}\n\n`;
+					case 'iframe': return `\n\n${node.outerHTML}\n\n`;
+					case 'font':
+					case 'span': {
+						const style = node.getAttribute('style');
+						const color = node.getAttribute('color');
+						if (style || color) {
+							return `<span style="${style || `color: ${color}`}">${inner}</span>`;
+						}
+						return inner;
+					}
+					case 'div': {
+						const align = node.style.textAlign;
+						if (align && align !== 'left') {
+							return `\n\n<div style="text-align: ${align};">\n${inner.trim()}\n</div>\n\n`;
+						}
+						return `\n${inner}\n`;
+					}
+					default: return inner;
+				}
+			}
+
+			const md = walk(div);
+			return md.replace(/\n{3,}/g, '\n\n').trim();
+		}
+
+		// Lấy dữ liệu form
+		function getFormData() {
+			return {
+				title: document.getElementById('postTitle').value.trim(),
+				slug: document.getElementById('postSlug').value.trim(),
+				description: document.getElementById('postDesc').value.trim(),
+				keywords: document.getElementById('postKeywords').value.trim(),
+				category: document.getElementById('postCategory').value.trim(),
+				tags: document.getElementById('postTags').value.trim(),
+				heroImage: document.getElementById('heroImageUrl').value.trim(),
+				content: htmlToCleanMarkdown(document.getElementById('editorContent').innerHTML),
+			};
+		}
+
+		// Lưu nháp
+		async function saveDraft() {
+			const data = getFormData();
+			if (!data.title || !data.slug) {
+				alert('Vui lòng nhập Tiêu đề và Slug trước khi lưu nháp.');
+				return;
+			}
+			try {
+				const res = await fetch('/admin/api/drafts', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
+					body: JSON.stringify(data),
+				});
+				const result = await res.json();
+				if (res.ok && result.success) {
+					alert(result.message);
+				} else {
+					alert(result.error || 'Lỗi khi lưu nháp.');
+				}
+			} catch (e) {
+				alert('Lỗi kết nối: ' + e.message);
+			}
+		}
+
+		// Xuất bản
+		async function publishPost() {
+			const data = getFormData();
+			if (!data.title || !data.slug || !data.content) {
+				alert('Vui lòng điền đầy đủ Tiêu đề, Slug và Nội dung trước khi xuất bản.');
+				return;
+			}
+			if (!confirm('Bạn có chắc chắn muốn xuất bản bài viết này lên blog không?')) return;
+
+			try {
+				const res = await fetch('/admin/api/publish', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
+					body: JSON.stringify(data),
+				});
+				const result = await res.json();
+				if (res.ok && result.success) {
+					alert(result.message);
+					switchTab('list');
+				} else {
+					alert(result.error || 'Lỗi khi xuất bản.');
+				}
+			} catch (e) {
+				alert('Lỗi kết nối: ' + e.message);
+			}
+		}
+
+		// Xem trước (Preview Modal)
+		function openPreviewModal() {
+			const data = getFormData();
+			document.getElementById('previewTitle').innerText = data.title || '(Chưa có tiêu đề)';
+			document.getElementById('previewDesc').innerText = data.description || '';
+			document.getElementById('previewHero').innerHTML = data.heroImage ? `<img src="${data.heroImage}" style="width:100%; max-height: 360px; object-fit: cover; border-radius: 8px;">` : '';
+			document.getElementById('previewBody').innerHTML = document.getElementById('editorContent').innerHTML;
+			document.getElementById('previewModal').style.display = 'flex';
+		}
+		function closePreviewModal() {
+			document.getElementById('previewModal').style.display = 'none';
+		}
+
+		// Tải danh sách bài viết
+		async function loadPostsList() {
+			const tbody = document.getElementById('postsTableBody');
+			tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Đang tải danh sách...</td></tr>';
+			try {
+				const res = await fetch('/admin/api/posts');
+				const data = await res.json();
+				if (!data.posts || data.posts.length === 0) {
+					tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Chưa có bài viết nào.</td></tr>';
+					return;
+				}
+				tbody.innerHTML = data.posts.map(p => `
+					<tr>
+						<td><strong>${p.title}</strong><br><small style="color:var(--text-muted);">${p.slug}</small></td>
+						<td>${p.category || '-'}</td>
+						<td>${p.pubDate ? p.pubDate.split('T')[0] : '-'}</td>
+						<td><span class="badge ${p.status === 'published' ? 'badge-published' : 'badge-draft'}">${p.status === 'published' ? 'Đã xuất bản' : 'Bản nháp'}</span></td>
+						<td>
+							<button class="tool-btn" onclick="editPost('${p.slug}', '${p.status}')" title="Sửa bài">✏️ Sửa</button>
+							<button class="tool-btn" onclick="deletePost('${p.slug}', '${p.status}')" title="Xóa bài" style="color:var(--danger);">🗑️ Xóa</button>
+						</td>
+					</tr>
+				`).join('');
+			} catch (e) {
+				tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--danger);">Lỗi tải danh sách bài viết.</td></tr>';
+			}
+		}
+
+		// Sửa bài viết
+		async function editPost(slug, status) {
+			try {
+				const res = await fetch(`/admin/api/posts/${slug}?status=${status}`);
+				const data = await res.json();
+				if (!res.ok) return alert(data.error);
+
+				const p = data.post;
+				currentEditingSlug = p.slug;
+				currentEditingStatus = status;
+
+				document.getElementById('postTitle').value = p.title || '';
+				document.getElementById('postSlug').value = p.slug || '';
+				document.getElementById('postDesc').value = p.description || '';
+				document.getElementById('postKeywords').value = p.keywords || '';
+				document.getElementById('postCategory').value = p.category || '';
+				document.getElementById('postTags').value = p.tags || '';
+				document.getElementById('heroImageUrl').value = p.heroImage || '';
+				document.getElementById('heroPreviewBox').innerHTML = p.heroImage ? `<img src="${p.heroImage}">` : '<span>Chưa có ảnh</span>';
+
+				// Nạp nội dung vào editor (nếu là markdown chuyển tạm thành thẻ text cơ bản)
+				document.getElementById('editorContent').innerText = p.content || '';
+				updateCharCount();
+
+				switchTab('write');
+			} catch (e) {
+				alert('Lỗi nạp bài viết: ' + e.message);
+			}
+		}
+
+		// Xóa bài viết
+		async function deletePost(slug, status) {
+			if (!confirm(`Bạn có chắc muốn xóa bài "${slug}" không? Thao tác này không thể hoàn tác.`)) return;
+			try {
+				const res = await fetch(`/admin/api/posts/${slug}?status=${status}`, {
+					method: 'DELETE',
+					headers: { 'x-csrf-token': csrfToken }
+				});
+				const data = await res.json();
+				if (res.ok) {
+					alert(data.message);
+					loadPostsList();
+				} else {
+					alert(data.error);
+				}
+			} catch (e) {
+				alert('Lỗi xóa bài: ' + e.message);
+			}
+		}
+
+		// Cài đặt 2FA
+		document.getElementById('btn2FASetup').addEventListener('click', async () => {
+			try {
+				const res = await fetch('/admin/api/2fa/setup');
+				const data = await res.json();
+				if (!res.ok) return alert(data.error);
+
+				const modalHtml = `
+					<div class="modal-overlay" id="twoFaModal" style="display:flex;">
+						<div class="modal-body" style="max-width: 420px; text-align: center;">
+							<h3>Cài đặt Xác thực 2 bước (2FA)</h3>
+							<p style="font-size: 0.9rem; margin: 0.8rem 0; color: var(--text-muted);">Dùng Google Authenticator hoặc Authy quét mã QR dưới đây:</p>
+							<img src="${data.qrCode}" style="width: 200px; height: 200px; margin: 0 auto 1rem auto;">
+							<p style="font-size: 0.8rem; font-family: monospace; background: #f1f5f9; padding: 4px; border-radius: 4px; margin-bottom: 1rem;">Mã khóa: ${data.secret}</p>
+							<input type="text" id="verifyOtpInput" class="input-field" placeholder="Nhập mã 6 số từ app..." maxlength="6" style="text-align:center; font-size: 1.2rem; letter-spacing: 4px;">
+							<div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+								<button class="btn btn-outline" style="flex:1;" onclick="document.getElementById('twoFaModal').remove()">Đóng</button>
+								<button class="btn btn-primary" style="flex:1;" onclick="confirmEnable2FA()">Kích hoạt</button>
+							</div>
+						</div>
+					</div>
+				`;
+				document.body.insertAdjacentHTML('beforeend', modalHtml);
+			} catch (e) {
+				alert('Lỗi khởi tạo 2FA: ' + e.message);
+			}
+		});
+
+		window.confirmEnable2FA = async function() {
+			const token = document.getElementById('verifyOtpInput').value.trim();
+			if (!token || token.length !== 6) return alert('Vui lòng nhập đủ 6 số OTP.');
+
+			try {
+				const res = await fetch('/admin/api/2fa/enable', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
+					body: JSON.stringify({ token })
+				});
+				const data = await res.json();
+				if (res.ok) {
+					alert(data.message);
+					document.getElementById('twoFaModal').remove();
+					document.getElementById('btn2FASetup').innerText = '2FA: Đã bật';
+					document.getElementById('btn2FASetup').style.color = '#16a34a';
+				} else {
+					alert(data.error);
+				}
+			} catch (e) {
+				alert('Lỗi kích hoạt: ' + e.message);
+			}
+		};
+
+		// Đăng xuất
+		document.getElementById('btnLogout').addEventListener('click', async () => {
+			await fetch('/admin/logout', { method: 'POST', headers: { 'x-csrf-token': csrfToken } });
+			window.location.href = '/admin/login';
+		});
+	</script>
+</body>
+</html>
+

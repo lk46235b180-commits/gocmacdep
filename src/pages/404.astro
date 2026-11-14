@@ -1,0 +1,60 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="vi">
+	<head>
+		<BaseHead
+			title={`Không tìm thấy trang (404) | ${SITE_TITLE}`}
+			description="Trang bạn tìm kiếm không tồn tại hoặc đã được chuyển đi."
+		/>
+		<style>
+			.not-found {
+				text-align: center;
+				padding: 4em 1em;
+			}
+			.not-found h1 {
+				font-size: 5em;
+				color: var(--accent);
+				margin: 0;
+				line-height: 1;
+			}
+			.not-found p {
+				font-size: 1.25em;
+				color: rgb(var(--gray));
+				margin: 1em 0 2em 0;
+			}
+			.btn-home {
+				display: inline-block;
+				background: var(--accent);
+				color: #ffffff;
+				padding: 10px 24px;
+				border-radius: 8px;
+				text-decoration: none;
+				font-weight: 600;
+				transition: background 0.2s;
+			}
+			.btn-home:hover {
+				background: var(--accent-dark);
+				color: #ffffff;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="not-found">
+				<h1>404</h1>
+				<h2>Rất tiếc! Không tìm thấy trang</h2>
+				<p>Trang bạn đang tìm kiếm có thể đã bị xóa, đổi tên hoặc tạm thời không khả dụng.</p>
+				<a href="/" class="btn-home">&larr; Quay về Trang chủ</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
