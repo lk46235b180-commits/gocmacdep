@@ -9,156 +9,424 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const recentPosts = posts.slice(0, 6);
 
-// Lấy tất cả các tags
+// Bài tiêu điểm #1
+const featuredPost = posts[0];
+// 2 bài tiêu điểm phụ tiếp theo
+const secondaryPosts = posts.slice(1, 3);
+// Các bài còn lại
+const recentPosts = posts.slice(3);
+
 const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
 ---
 
 <!doctype html>
 <html lang="vi">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} — Tạp chí Phong cách & Thời trang`} description={SITE_DESCRIPTION} />
 		<style>
-			.hero-banner {
-				text-align: center;
-				padding: 3.5em 1em 2.5em 1em;
-				background: linear-gradient(180deg, var(--accent-light) 0%, rgba(255,255,255,0) 100%);
-				border-radius: 16px;
-				margin-bottom: 3em;
-			}
-			.hero-banner h1 {
-				font-size: 2.8em;
-				color: var(--accent);
-				margin-bottom: 0.3em;
-			}
-			.hero-banner p {
-				font-size: 1.25em;
-				color: rgb(var(--gray-dark));
-				max-width: 600px;
-				margin: 0 auto;
-			}
-			.section-header {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				margin-bottom: 1.5em;
-			}
-			.post-grid {
+			/* Magazine Hero Grid */
+			.hero-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+				grid-template-columns: 1.4fr 1fr;
 				gap: 2em;
-				list-style-type: none;
-				margin: 0 0 3em 0;
-				padding: 0;
+				margin-bottom: 5em;
 			}
-			.post-card {
-				background: #ffffff;
-				border: 1px solid #e2e8f0;
-				border-radius: 12px;
+
+			/* Main Spotlight Post */
+			.spotlight-card {
+				position: relative;
+				border-radius: var(--radius-lg);
 				overflow: hidden;
-				transition: transform 0.2s, box-shadow 0.2s;
+				background: #ffffff;
+				box-shadow: var(--shadow-card);
+				border: 1px solid var(--border-light);
 				display: flex;
 				flex-direction: column;
-			}
-			.post-card:hover {
-				transform: translateY(-4px);
-				box-shadow: var(--box-shadow);
-			}
-			.post-card img {
-				width: 100%;
-				height: 200px;
-				object-fit: cover;
-			}
-			.post-content {
-				padding: 1.2em;
-				display: flex;
-				flex-direction: column;
-				flex-grow: 1;
-			}
-			.post-title {
-				font-size: 1.3em;
-				font-weight: 700;
-				margin: 0 0 0.5em 0;
-				line-height: 1.3;
-			}
-			.post-title a {
-				color: rgb(var(--black));
+				transition: var(--transition);
 				text-decoration: none;
 			}
-			.post-title a:hover {
-				color: var(--accent);
+			.spotlight-card:hover {
+				transform: translateY(-6px);
+				box-shadow: var(--shadow-float);
 			}
-			.post-desc {
-				font-size: 15px;
-				color: rgb(var(--gray));
-				line-height: 1.6;
-				margin-bottom: 1em;
+			.spotlight-media {
+				position: relative;
+				height: 440px;
+				overflow: hidden;
+			}
+			.spotlight-media img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 0;
+				transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+			.spotlight-card:hover .spotlight-media img {
+				transform: scale(1.06);
+			}
+			.spotlight-badge {
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				background: rgba(15, 23, 42, 0.85);
+				backdrop-filter: blur(8px);
+				color: #ffffff;
+				padding: 6px 16px;
+				border-radius: var(--radius-pill);
+				font-size: 11px;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
+			.spotlight-info {
+				padding: 2.5em;
+				display: flex;
+				flex-direction: column;
 				flex-grow: 1;
+				background: linear-gradient(180deg, #ffffff 0%, #fffdfd 100%);
 			}
-			.post-meta {
-				font-size: 14px;
-				color: rgb(var(--gray));
+			.spotlight-title {
+				font-size: 2.2em;
+				line-height: 1.25;
+				color: var(--text-dark);
+				margin: 0 0 0.5em 0;
+			}
+			.spotlight-desc {
+				font-size: 17px;
+				color: var(--text-muted);
+				line-height: 1.7;
+				margin-bottom: 1.8em;
+			}
+			.spotlight-meta {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				padding-top: 0.8em;
+				padding-top: 1.2em;
 				border-top: 1px solid #f1f5f9;
+				font-size: 14px;
+				color: var(--text-light);
 			}
-			.tag-cloud {
+			.read-arrow {
+				font-weight: 700;
+				color: var(--primary);
+				display: inline-flex;
+				align-items: center;
+				gap: 4px;
+			}
+
+			/* Secondary Stack */
+			.secondary-stack {
 				display: flex;
-				flex-wrap: wrap;
-				gap: 8px;
-				margin-bottom: 3em;
+				flex-direction: column;
+				gap: 1.8em;
+			}
+			.sub-card {
+				background: #ffffff;
+				border-radius: var(--radius-md);
+				overflow: hidden;
+				box-shadow: var(--shadow-card);
+				border: 1px solid var(--border-light);
+				display: grid;
+				grid-template-columns: 160px 1fr;
+				transition: var(--transition);
+				text-decoration: none;
+				height: 100%;
+			}
+			.sub-card:hover {
+				transform: translateY(-4px);
+				box-shadow: var(--shadow-float);
+			}
+			.sub-thumb {
+				position: relative;
+				height: 100%;
+				min-height: 180px;
+				overflow: hidden;
+			}
+			.sub-thumb img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 0;
+				transition: transform 0.6s ease;
+			}
+			.sub-card:hover .sub-thumb img {
+				transform: scale(1.08);
+			}
+			.sub-body {
+				padding: 1.4em;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.sub-category {
+				font-size: 11px;
+				font-weight: 700;
+				color: var(--primary);
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				margin-bottom: 0.4em;
+			}
+			.sub-title {
+				font-size: 1.35em;
+				line-height: 1.3;
+				margin: 0 0 0.5em 0;
+				color: var(--text-dark);
+			}
+			.sub-date {
+				font-size: 13px;
+				color: var(--text-light);
+			}
+
+			/* Section Title Bar */
+			.section-header-bar {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				margin-bottom: 2.5em;
+				padding-bottom: 1em;
+				border-bottom: 1.5px solid var(--border-light);
+			}
+			.section-title {
+				font-size: 2.2em;
+				margin: 0;
+				display: flex;
+				align-items: center;
+				gap: 0.4em;
+			}
+			.section-title span {
+				color: var(--primary);
+			}
+
+			/* Magazine Grid */
+			.editorial-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+				gap: 2.5em;
+				list-style: none;
+				padding: 0;
+				margin: 0 0 5em 0;
+			}
+			.card-editorial {
+				background: #ffffff;
+				border-radius: var(--radius-md);
+				overflow: hidden;
+				box-shadow: var(--shadow-card);
+				border: 1px solid var(--border-light);
+				display: flex;
+				flex-direction: column;
+				transition: var(--transition);
+			}
+			.card-editorial:hover {
+				transform: translateY(-6px);
+				box-shadow: var(--shadow-float);
+			}
+			.card-media {
+				position: relative;
+				height: 240px;
+				overflow: hidden;
+			}
+			.card-media img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 0;
+				transition: transform 0.6s ease;
+			}
+			.card-editorial:hover .card-media img {
+				transform: scale(1.08);
+			}
+			.card-category-tag {
+				position: absolute;
+				bottom: 14px;
+				left: 14px;
+				background: rgba(255, 255, 255, 0.95);
+				backdrop-filter: blur(6px);
+				color: var(--primary);
+				padding: 4px 12px;
+				border-radius: var(--radius-pill);
+				font-size: 11px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			}
+			.card-inner {
+				padding: 1.8em;
+				display: flex;
+				flex-direction: column;
+				flex-grow: 1;
+			}
+			.card-h3 {
+				font-size: 1.45em;
+				line-height: 1.35;
+				margin: 0 0 0.6em 0;
+			}
+			.card-h3 a {
+				color: var(--text-dark);
+				text-decoration: none;
+			}
+			.card-h3 a:hover {
+				color: var(--primary);
+			}
+			.card-text {
+				font-size: 15px;
+				color: var(--text-muted);
+				line-height: 1.65;
+				margin-bottom: 1.4em;
+				flex-grow: 1;
+			}
+			.card-bottom {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 13px;
+				color: var(--text-light);
+				padding-top: 1em;
+				border-top: 1px solid #f8fafc;
+			}
+
+			/* VIP Newsletter Box */
+			.vip-box {
+				background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+				border-radius: var(--radius-lg);
+				padding: 4.5em 3em;
+				color: #ffffff;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+				box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+				margin: 4em 0;
+			}
+			.vip-box::before {
+				content: '';
+				position: absolute;
+				top: -100px;
+				right: -100px;
+				width: 300px;
+				height: 300px;
+				background: radial-gradient(circle, rgba(225, 29, 72, 0.4) 0%, transparent 70%);
+			}
+			.vip-box h2 {
+				font-size: 2.8em;
+				color: #ffffff;
+				margin-bottom: 0.3em;
+			}
+			.vip-box p {
+				color: #cbd5e1;
+				max-width: 600px;
+				margin: 0 auto 2em auto;
+				font-size: 18px;
+			}
+
+			@media (max-width: 960px) {
+				.hero-grid {
+					grid-template-columns: 1fr;
+				}
+				.spotlight-media {
+					height: 300px;
+				}
+				.sub-card {
+					grid-template-columns: 140px 1fr;
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section class="hero-banner">
-				<h1>{SITE_TITLE}</h1>
-				<p>{SITE_DESCRIPTION}</p>
+			<!-- HERO SPOTLIGHT GRID -->
+			<section class="hero-grid">
+				{featuredPost && (
+					<a href={`/blog/${featuredPost.id}/`} class="spotlight-card">
+						<div class="spotlight-media">
+							<span class="spotlight-badge">★ Tiêu Điểm Biên Tập</span>
+							{featuredPost.data.heroImage && (
+								<img src={featuredPost.data.heroImage} alt={featuredPost.data.title} />
+							)}
+						</div>
+						<div class="spotlight-info">
+							<span class="badge" style="align-self: flex-start; margin-bottom: 0.8em;">
+								{featuredPost.data.category || 'Phong cách'}
+							</span>
+							<h1 class="spotlight-title">{featuredPost.data.title}</h1>
+							<p class="spotlight-desc">{featuredPost.data.description}</p>
+							<div class="spotlight-meta">
+								<span><FormattedDate date={featuredPost.data.pubDate} /></span>
+								<span class="read-arrow">Đọc chuyên đề này &rarr;</span>
+							</div>
+						</div>
+					</a>
+				)}
+
+				<!-- 2 bài tiêu điểm phụ bên cạnh -->
+				<div class="secondary-stack">
+					{secondaryPosts.map((post) => (
+						<a href={`/blog/${post.id}/`} class="sub-card">
+							<div class="sub-thumb">
+								{post.data.heroImage && (
+									<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
+								)}
+							</div>
+							<div class="sub-body">
+								<span class="sub-category">{post.data.category || 'Xu hướng'}</span>
+								<h3 class="sub-title">{post.data.title}</h3>
+								<span class="sub-date"><FormattedDate date={post.data.pubDate} /></span>
+							</div>
+						</a>
+					))}
+				</div>
 			</section>
 
+			<!-- DANH SÁCH BÀI VIẾT CHỌN LỌC -->
 			<section>
-				<div class="section-header">
-					<h2>Bài viết mới nhất</h2>
-					<a href="/blog">Xem tất cả &rarr;</a>
+				<div class="section-header-bar">
+					<h2 class="section-title">Ấn phẩm <span>Mới Nhất</span></h2>
+					<a href="/blog" class="btn-outline" style="padding: 6px 20px; font-size: 13px;">Tất cả bài viết &rarr;</a>
 				</div>
-				<ul class="post-grid">
-					{
-						recentPosts.map((post) => (
-							<li class="post-card">
+
+				<ul class="editorial-grid">
+					{posts.map((post) => (
+						<li class="card-editorial">
+							<div class="card-media">
+								{post.data.category && (
+									<span class="card-category-tag">{post.data.category}</span>
+								)}
 								{post.data.heroImage && (
 									<a href={`/blog/${post.id}/`}>
-										<img src={post.data.heroImage} alt={post.data.title} />
+										<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
 									</a>
 								)}
-								<div class="post-content">
-									<h3 class="post-title">
-										<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-									</h3>
-									<p class="post-desc">{post.data.description}</p>
-									<div class="post-meta">
-										<span><FormattedDate date={post.data.pubDate} /></span>
-										{post.data.category && (
-											<span class="badge">{post.data.category}</span>
-										)}
-									</div>
+							</div>
+							<div class="card-inner">
+								<h3 class="card-h3">
+									<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								</h3>
+								<p class="card-text">{post.data.description}</p>
+								<div class="card-bottom">
+									<span><FormattedDate date={post.data.pubDate} /></span>
+									<a href={`/blog/${post.id}/`} style="font-weight: 700;">Khám phá &rarr;</a>
 								</div>
-							</li>
-						))
-					}
+							</div>
+						</li>
+					))}
 				</ul>
 			</section>
 
+			<!-- VIP BANNER -->
+			<section class="vip-box">
+				<h2>Xây Dựng Khí Chất Cùng Góc Mặc Đẹp</h2>
+				<p>Thời trang là ngôn ngữ trực quan phản ánh vẻ đẹp bên trong của bạn. Hãy cùng chúng tôi định hình phong cách riêng mỗi ngày.</p>
+				<a href="/gioi-thieu" class="btn-primary">Tìm hiểu sứ mệnh của chúng tôi &rarr;</a>
+			</section>
+
+			<!-- CHỦ ĐỀ / TAGS -->
 			{allTags.length > 0 && (
-				<section>
-					<h2>Chủ đề được quan tâm</h2>
-					<div class="tag-cloud">
+				<section style="margin-top: 4em;">
+					<h3 style="margin-bottom: 1.2em; font-size: 1.6em;">Chủ đề bạn có thể quan tâm:</h3>
+					<div style="display: flex; flex-wrap: wrap; gap: 10px;">
 						{allTags.map((tag) => (
-							<a href={`/tags/${encodeURIComponent(tag.toLowerCase())}`} class="badge">
+							<a href={`/tags/${encodeURIComponent(tag.toLowerCase())}`} class="badge" style="font-size: 13px; padding: 6px 16px;">
 								#{tag}
 							</a>
 						))}

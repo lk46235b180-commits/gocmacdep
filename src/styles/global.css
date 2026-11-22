@@ -1,188 +1,250 @@
 /*
-  Góc Mặc Đẹp - Theme Styles
+  Góc Mặc Đẹp - Haute Couture & Editorial Fashion Design System
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
 :root {
-	--accent: #e11d48;
-	--accent-dark: #be123c;
-	--accent-light: #ffe4e6;
-	--black: 15, 23, 42;
-	--gray: 100, 116, 139;
-	--gray-light: 241, 245, 249;
-	--gray-dark: 30, 41, 59;
-	--gray-gradient: rgba(var(--gray-light), 60%), #ffffff;
-	--box-shadow:
-		0 2px 6px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.08),
-		0 16px 32px rgba(0, 0, 0, 0.06);
+	--font-display: 'Cormorant Garamond', Garamond, Georgia, serif;
+	--font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+	
+	/* Palette màu thời trang cao cấp */
+	--primary: #be123c; /* Rose 700 - Đỏ hoa hồng Pháp quý phái */
+	--primary-hover: #9f1239;
+	--primary-light: #fff1f2;
+	--primary-soft: #ffe4e6;
+	--primary-gradient: linear-gradient(135deg, #be123c 0%, #e11d48 50%, #fb7185 100%);
+	--gold-accent: #d97706; /* Điểm nhấn ánh kim vàng */
+	
+	--text-dark: #0f172a;
+	--text-body: #334155;
+	--text-muted: #64748b;
+	--text-light: #94a3b8;
+	
+	--bg-site: #fdfcfb; /* Warm ivory/cát mịn sang trọng */
+	--bg-card: #ffffff;
+	--border-light: rgba(226, 232, 240, 0.8);
+	--border-focus: rgba(190, 18, 60, 0.4);
+	
+	--shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.03);
+	--shadow-card: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.02);
+	--shadow-float: 0 20px 40px -10px rgba(190, 18, 60, 0.15);
+	
+	--radius-sm: 8px;
+	--radius-md: 14px;
+	--radius-lg: 24px;
+	--radius-pill: 9999px;
+	
+	--transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-family: var(--font-body);
 	margin: 0;
 	padding: 0;
-	text-align: left;
-	background: #ffffff;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
+	background-color: var(--bg-site);
+	color: var(--text-body);
 	font-size: 18px;
-	line-height: 1.8;
+	line-height: 1.85;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
+/* Container chuẩn */
 main {
-	width: 800px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 2.5em 1em;
-	min-height: calc(100vh - 220px);
+	width: 1200px;
+	max-width: calc(100% - 3em);
+	margin: 0 auto;
+	padding: 3.5em 0 6em 0;
+	min-height: calc(100vh - 280px);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.75rem 0;
-	color: rgb(var(--black));
-	line-height: 1.3;
+/* Typography Editorial */
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-display);
+	color: var(--text-dark);
+	line-height: 1.2;
 	font-weight: 700;
+	margin: 0 0 0.8rem 0;
+	letter-spacing: -0.01em;
 }
 
-h1 { font-size: 2.4em; }
-h2 { font-size: 1.9em; margin-top: 1.5em; }
-h3 { font-size: 1.5em; margin-top: 1.3em; }
-h4 { font-size: 1.25em; }
-h5 { font-size: 1.1em; }
+h1 { font-size: 3.2em; font-weight: 700; }
+h2 { font-size: 2.4em; }
+h3 { font-size: 1.8em; }
+h4 { font-size: 1.35em; }
 
-strong, b { font-weight: 700; }
+p {
+	margin-bottom: 1.6em;
+	font-size: 18px;
+	color: var(--text-body);
+}
 
 a {
-	color: var(--accent);
+	color: var(--primary);
 	text-decoration: none;
-	transition: color 0.2s;
+	transition: var(--transition);
 }
 
 a:hover {
-	color: var(--accent-dark);
-	text-decoration: underline;
+	color: var(--primary-hover);
 }
 
-p {
-	margin-bottom: 1.4em;
-	font-size: 18px;
+/* Badges / Category Pills */
+.badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: #ffffff;
+	color: var(--primary);
+	border: 1px solid var(--primary-soft);
+	padding: 5px 14px;
+	border-radius: var(--radius-pill);
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	box-shadow: 0 2px 6px rgba(190, 18, 60, 0.06);
+	transition: var(--transition);
 }
 
-.prose p {
-	margin-bottom: 1.5em;
-	font-size: 18px;
+.badge:hover {
+	background: var(--primary-gradient);
+	color: #ffffff;
+	border-color: transparent;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(190, 18, 60, 0.25);
 }
 
-textarea, input {
-	font-size: 16px;
-	font-family: inherit;
+/* Buttons cao cấp */
+.btn-primary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	background: var(--primary-gradient);
+	color: #ffffff !important;
+	padding: 12px 28px;
+	border-radius: var(--radius-pill);
+	font-weight: 600;
+	font-size: 15px;
+	letter-spacing: 0.02em;
+	box-shadow: 0 6px 20px rgba(190, 18, 60, 0.25);
+	transition: var(--transition);
+	border: none;
+	cursor: pointer;
 }
 
+.btn-primary:hover {
+	transform: translateY(-3px) scale(1.02);
+	box-shadow: 0 10px 28px rgba(190, 18, 60, 0.35);
+}
+
+.btn-outline {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	background: transparent;
+	color: var(--text-dark);
+	padding: 11px 26px;
+	border-radius: var(--radius-pill);
+	font-weight: 600;
+	font-size: 15px;
+	border: 1.5px solid var(--border-light);
+	transition: var(--transition);
+}
+
+.btn-outline:hover {
+	border-color: var(--primary);
+	color: var(--primary);
+	background: var(--primary-light);
+	transform: translateY(-2px);
+}
+
+/* Tables */
 table {
 	width: 100%;
-	border-collapse: collapse;
-	margin: 1.5em 0;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 2.5em 0;
+	background: #ffffff;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	box-shadow: var(--shadow-card);
+	border: 1px solid var(--border-light);
 }
 
 table th, table td {
-	border: 1px solid #e2e8f0;
-	padding: 10px 14px;
+	padding: 16px 22px;
 	text-align: left;
 }
 
 table th {
-	background-color: var(--gray-light);
-	font-weight: 600;
+	background: #f8fafc;
+	font-family: var(--font-display);
+	font-size: 1.15em;
+	color: var(--text-dark);
+	border-bottom: 2px solid var(--border-light);
+}
+
+table td {
+	border-bottom: 1px solid #f1f5f9;
+}
+
+table tr:last-child td {
+	border-bottom: none;
+}
+
+/* Blockquotes */
+blockquote {
+	position: relative;
+	border-left: 3px solid var(--primary);
+	padding: 1.5em 2em;
+	margin: 2.5em 0;
+	background: #ffffff;
+	border-radius: 0 var(--radius-md) var(--radius-md) 0;
+	font-family: var(--font-display);
+	font-size: 1.35em;
+	font-style: italic;
+	color: #1e293b;
+	box-shadow: var(--shadow-subtle);
+}
+
+blockquote::before {
+	content: "“";
+	position: absolute;
+	top: -10px;
+	left: 15px;
+	font-size: 4em;
+	color: var(--primary-soft);
+	line-height: 1;
+	z-index: 0;
+	pointer-events: none;
 }
 
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	display: block;
+	border-radius: var(--radius-md);
 }
 
-code {
-	padding: 2px 6px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 4px;
-	font-size: 0.9em;
-}
-
-pre {
-	padding: 1.2em;
-	border-radius: 8px;
-	background-color: #0f172a;
-	color: #f8fafc;
-	overflow-x: auto;
-}
-
-pre > code {
-	all: unset;
-}
-
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0.5em 0 0.5em 1.2em;
-	margin: 1.5em 0;
-	background: var(--accent-light);
-	border-radius: 0 8px 8px 0;
-	font-style: italic;
-	color: rgb(var(--gray-dark));
-}
-
-hr {
-	border: none;
-	border-top: 1px solid #e2e8f0;
-	margin: 2em 0;
-}
-
-.badge {
-	display: inline-block;
-	background: var(--accent-light);
-	color: var(--accent-dark);
-	padding: 3px 10px;
-	border-radius: 9999px;
-	font-size: 14px;
-	font-weight: 600;
-	text-decoration: none;
-	margin-right: 6px;
-	margin-bottom: 6px;
-}
-.badge:hover {
-	background: var(--accent);
-	color: #fff;
-	text-decoration: none;
-}
-
-@media (max-width: 720px) {
-	body {
-		font-size: 18px;
-	}
+/* Responsive */
+@media (max-width: 768px) {
 	main {
-		padding: 1.5em 1em;
+		max-width: calc(100% - 1.8em);
+		padding: 2em 0 4em 0;
 	}
-	h1 {
-		font-size: 1.9em;
-	}
-	h2 {
-		font-size: 1.5em;
-	}
-}
-
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	clip: rect(1px 1px 1px 1px);
-	clip-path: inset(50%);
-	white-space: nowrap;
+	h1 { font-size: 2.3em; }
+	h2 { font-size: 1.8em; }
+	h3 { font-size: 1.4em; }
+	body { font-size: 18px; }
 }

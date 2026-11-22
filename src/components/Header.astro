@@ -3,83 +3,210 @@ import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
 
-<header>
-	<nav>
-		<div class="site-branding">
-			<a href="/" class="site-title">{SITE_TITLE}</a>
+<!-- Top Announcement Ribbon -->
+<div class="top-ribbon">
+	<div class="ribbon-inner">
+		<span>✨ Tạp chí cảm hứng thời trang, phong cách & nghệ thuật sống đẹp</span>
+		<div class="ribbon-links">
+			<a href="/gioi-thieu">Về chúng tôi</a>
+			<span>•</span>
+			<a href="/lien-he">Hợp tác & Liên hệ</a>
 		</div>
-		<div class="internal-links">
+	</div>
+</div>
+
+<header class="main-header">
+	<div class="header-container">
+		<!-- Brand Logo -->
+		<div class="header-brand">
+			<a href="/" class="brand-link">
+				<span class="brand-monogram">G</span>
+				<div class="brand-titles">
+					<span class="brand-name">{SITE_TITLE}</span>
+					<span class="brand-sub">EDITORIAL & LIFESTYLE</span>
+				</div>
+			</a>
+		</div>
+
+		<!-- Navigation Links -->
+		<nav class="header-nav">
 			<HeaderLink href="/">Trang chủ</HeaderLink>
 			<HeaderLink href="/blog">Bài viết</HeaderLink>
 			<HeaderLink href="/tags">Chủ đề</HeaderLink>
 			<HeaderLink href="/gioi-thieu">Giới thiệu</HeaderLink>
 			<HeaderLink href="/lien-he">Liên hệ</HeaderLink>
+		</nav>
+
+		<!-- Right Actions -->
+		<div class="header-actions">
+			<a href="/admin" class="admin-button" title="Khu vực viết bài & quản trị">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M12 20h9"></path>
+					<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+				</svg>
+				<span>Quản trị</span>
+			</a>
 		</div>
-	</nav>
+	</div>
 </header>
+
 <style>
-	header {
-		margin: 0;
-		padding: 0.5em 1em;
-		background: #ffffff;
-		border-bottom: 1px solid #f1f5f9;
+	/* Top Ribbon */
+	.top-ribbon {
+		background: #0f172a;
+		color: #94a3b8;
+		font-size: 12px;
+		padding: 6px 1.5em;
+		letter-spacing: 0.03em;
+	}
+	.ribbon-inner {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.ribbon-links {
+		display: flex;
+		align-items: center;
+		gap: 0.8em;
+	}
+	.ribbon-links a {
+		color: #cbd5e1;
+		text-decoration: none;
+	}
+	.ribbon-links a:hover {
+		color: #ffffff;
+	}
+
+	/* Main Header */
+	.main-header {
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(16px);
+		border-bottom: 1px solid rgba(226, 232, 240, 0.8);
 		position: sticky;
 		top: 0;
-		z-index: 50;
-		backdrop-filter: blur(8px);
-		background-color: rgba(255, 255, 255, 0.95);
+		z-index: 1000;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 	}
-	nav {
-		max-width: 900px;
+	.header-container {
+		max-width: 1200px;
 		margin: 0 auto;
+		padding: 0.9em 1.5em;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		flex-wrap: wrap;
-		gap: 0.8em;
+		gap: 2em;
 	}
-	.site-title {
-		font-size: 1.4em;
-		font-weight: 800;
-		color: var(--accent);
-		text-decoration: none;
-		letter-spacing: -0.5px;
-	}
-	.internal-links {
+
+	/* Monogram Logo */
+	.brand-link {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 0.3em;
-	}
-	.internal-links :global(a) {
-		padding: 0.5em 0.8em;
-		color: rgb(var(--gray-dark));
-		border-radius: 6px;
+		align-items: center;
+		gap: 0.8em;
 		text-decoration: none;
-		font-weight: 500;
-		font-size: 16px;
-		transition: all 0.2s ease;
 	}
-	.internal-links :global(a:hover) {
-		background: var(--accent-light);
-		color: var(--accent);
-	}
-	.internal-links :global(a.active) {
-		background: var(--accent);
+	.brand-monogram {
+		width: 44px;
+		height: 44px;
+		border-radius: 12px;
+		background: var(--primary-gradient);
 		color: #ffffff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-display);
+		font-size: 26px;
+		font-weight: 700;
+		box-shadow: 0 4px 12px rgba(190, 18, 60, 0.3);
 	}
-	@media (max-width: 600px) {
-		nav {
-			flex-direction: column;
-			align-items: flex-start;
+	.brand-titles {
+		display: flex;
+		flex-direction: column;
+	}
+	.brand-name {
+		font-family: var(--font-display);
+		font-size: 1.7em;
+		font-weight: 700;
+		color: var(--text-dark);
+		line-height: 1;
+		letter-spacing: -0.02em;
+	}
+	.brand-sub {
+		font-size: 10px;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		color: var(--text-muted);
+		margin-top: 3px;
+	}
+
+	/* Navigation */
+	.header-nav {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+	.header-nav :global(a) {
+		padding: 8px 18px;
+		color: var(--text-body);
+		font-weight: 600;
+		font-size: 15px;
+		border-radius: var(--radius-pill);
+		text-decoration: none;
+		transition: var(--transition);
+	}
+	.header-nav :global(a:hover) {
+		color: var(--primary);
+		background: var(--primary-light);
+	}
+	.header-nav :global(a.active) {
+		background: var(--primary);
+		color: #ffffff !important;
+		box-shadow: 0 4px 12px rgba(190, 18, 60, 0.25);
+	}
+
+	/* Right Button */
+	.admin-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		background: #ffffff;
+		border: 1.5px solid var(--border-light);
+		color: var(--text-dark);
+		padding: 7px 16px;
+		border-radius: var(--radius-pill);
+		font-size: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: var(--transition);
+		box-shadow: var(--shadow-subtle);
+	}
+	.admin-button:hover {
+		border-color: var(--primary);
+		color: var(--primary);
+		background: var(--primary-light);
+		transform: translateY(-2px);
+	}
+
+	@media (max-width: 860px) {
+		.top-ribbon {
+			display: none;
 		}
-		.internal-links {
+		.header-container {
+			flex-wrap: wrap;
+			padding: 0.8em 1em;
+		}
+		.header-nav {
+			order: 3;
 			width: 100%;
 			overflow-x: auto;
-			padding-bottom: 4px;
+			padding-top: 0.6em;
+			border-top: 1px solid #f1f5f9;
 		}
-		.internal-links :global(a) {
-			padding: 0.4em 0.6em;
-			font-size: 15px;
+		.header-nav :global(a) {
+			white-space: nowrap;
+			padding: 6px 14px;
+			font-size: 14px;
 		}
 	}
 </style>
